@@ -1,0 +1,117 @@
+# Big Brain — LLM Wiki Schema
+
+A personal knowledge base maintained by Claude Code, based on Andrej Karpathy's LLM Wiki pattern.
+
+**Where raw thought becomes structured intelligence.**
+*Every idea earns its place. Every concept finds its context.*
+
+---
+
+## What This Is
+
+The wiki is a persistent, compounding artifact. You (Nick) source, explore, and ask questions. Claude writes and maintains all of it — summarizing, cross-referencing, filing, and bookkeeping so the knowledge base gets richer over time.
+
+**Three layers:**
+- `Raw/` — your source documents. Immutable. Claude reads but never modifies these.
+- `Wiki/` — Claude-generated markdown. Summaries, entity pages, concept pages, syntheses. Claude owns this entirely.
+- `CLAUDE.md` — this file. The operating schema that makes Claude a disciplined wiki maintainer.
+
+---
+
+## Folder Structure
+
+```
+Big brain/
+├── CLAUDE.md               ← This file (schema / operating instructions)
+├── Raw/                    ← Drop sources here (articles, PDFs, notes, transcripts)
+├── Wiki/
+│   ├── index.md            ← Master catalog of all wiki pages
+│   ├── log.md              ← Append-only operation log
+│   ├── Sources/            ← One summary page per ingested source
+│   ├── Concepts/           ← Ideas, frameworks, mental models, principles
+│   ├── People/             ← Person pages (thinkers, authors, contacts)
+│   ├── Projects/           ← Active and past project pages
+│   └── Topics/             ← Topic overviews, syntheses, comparisons
+```
+
+---
+
+## Operations
+
+### Ingest — adding a new source
+
+When Nick drops a file in `Raw/` and says "ingest this":
+
+1. **Read** the full source.
+2. **Discuss** — briefly surface 2-3 key takeaways before writing anything. Let Nick redirect emphasis.
+3. **Write a source summary** in `Wiki/Sources/` named after the source (e.g. `Sources/The-Lean-Startup.md`).
+4. **Update or create concept/entity pages** — each major idea, person, or framework gets its own page in the right subfolder. A single source may touch 5–15 pages.
+5. **Cross-link** — two-way step:
+   - Add `[[links]]` in new/updated pages pointing to related existing pages.
+   - Read `Wiki/index.md` to find existing pages that share topics with the new source and add back-links there too.
+6. **Update `Wiki/index.md`** — add the new source page and any new wiki pages created.
+7. **Append to `Wiki/log.md`** — one entry with date, operation type, and source title.
+
+### Query — answering questions
+
+When Nick asks a question:
+
+1. Read `Wiki/index.md` to identify relevant pages.
+2. Read those pages in full.
+3. Synthesize an answer with citations (link to wiki pages, not raw sources).
+4. **If the answer is valuable** (a comparison, analysis, or discovery), offer to file it as a new wiki page so it compounds into the knowledge base rather than disappearing into chat history.
+
+### Lint — health-checking the wiki
+
+When Nick says "lint the wiki" or "health check":
+
+1. Scan all pages for: contradictions, stale claims superseded by newer sources, orphan pages (no inbound links), important concepts mentioned but lacking their own page, missing cross-references.
+2. Report findings as a checklist — what to fix, what pages to create, what sources to look for next.
+3. Optionally run web searches to fill data gaps.
+
+---
+
+## Page Conventions
+
+### Frontmatter (all wiki pages)
+
+```yaml
+---
+title: Page Title
+type: source | concept | person | project | topic
+created: YYYY-MM-DD
+updated: YYYY-MM-DD
+sources: [Source Title 1, Source Title 2]
+tags: [tag1, tag2]
+---
+```
+
+### Linking
+
+- Use `[[Page Name]]` for internal wiki links (Obsidian-compatible).
+- Link liberally — a link that doesn't exist yet is fine; it marks something worth creating.
+- Every page should have at least one inbound link from another page.
+
+### Writing style
+
+- Write for a reader who hasn't seen the source — be self-contained.
+- Lead with the core idea, then detail.
+- Flag contradictions explicitly: `> **Contradicts:** [[Other Page]] — reason`.
+- Flag open questions: `> **Open:** what question remains unanswered`.
+
+---
+
+## index.md Conventions
+
+Organized by category. Each entry: `- [[Page Name]] — one-line summary`.
+Updated on every ingest and whenever new pages are created.
+
+## log.md Conventions
+
+Append-only. Each entry:
+```
+## [YYYY-MM-DD] operation | Title or description
+Brief note on what changed — pages created/updated, key insights.
+```
+
+Log entry types: `ingest`, `query`, `lint`, `create`.
