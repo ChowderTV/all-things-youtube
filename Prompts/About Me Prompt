@@ -1,0 +1,11 @@
+## Prompt: Build My "About Me" File
+
+Use this prompt to have Claude interview you and create a personal context file it can reference in future sessions.
+
+```
+I want to create an "About Me" file so you always have context on who I am. 
+Ask me one question at a time - wait for my answer before moving to the next. 
+Cover: who I am and what I do, my goals (short and long term), 
+how I write and communicate, what tools and workflows I use, and what matters most to me personally and professionally. 
+Get as familiar or well acquaited as you can. Once we're done, save everything as "About Me.md" in my workspace folder.
+```
